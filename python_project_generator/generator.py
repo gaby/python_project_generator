@@ -3,7 +3,7 @@ import shutil
 import argparse
 import jinja2
 
-project_dir = os.path.abspath(os.path.dirname(__file__))
+project_dir = os.path.dirname(__file__)
 
 
 class ProjectGenerator():
@@ -23,23 +23,20 @@ class ProjectGenerator():
     def get_target_path(self, item):
         temp = jinja2.Template(item)
         target_path = temp.render(self.render_dict)
-        ttt =  os.path.join(self.target_dir, target_path)
-        print('ttt:',ttt)
-        return ttt
+        return os.path.join(self.target_dir, target_path)
 
-    def template_items(self):
-        for cur_dir, dirs, files in os.walk(self.template_dir):
-            yield cur_dir
-            for d in dirs:
-                yield os.path.join(cur_dir, d)
-            for f in files:
-                yield os.path.join(cur_dir, f)
+    def template_items(self, top):
+        for item in os.listdir(top):
+            item_path = os.path.join(top, item)
+            yield os.path.relpath(item_path, self.template_dir)
+            if os.path.isdir(item_path):
+                for x in self.template_items(item_path):
+                    yield x
 
     def generate(self):
-        for item in self.template_items():
+        for item in self.template_items(self.template_dir):
             item_path = self.get_item_path(item)
             target_path = self.get_target_path(item)
-            print('Gene: item_path: ', item_path, 'tar:', target_path)
 
             if os.path.isdir(item_path):
                 try:
@@ -53,6 +50,7 @@ class ProjectGenerator():
                     content = jinja2.Template(content).render(self.render_dict)
                     with open(target_path, 'w') as out_file:
                         out_file.write(content)
+            print('\n')
 
 
 def main():
@@ -79,7 +77,6 @@ def get_parser_args():
                         help="email of the author")
     args = parser.parse_args()
     target_dir = os.path.abspath(args.dir)
-    print('target_dir: ', target_dir)
     return {'project_name': args.name,
             'author_name': args.author,
             'author_email': args.email,

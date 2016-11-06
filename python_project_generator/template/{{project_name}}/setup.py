@@ -19,4 +19,6 @@ setup(
     url='project_url',
     license=license,
     packages=find_packages(exclude=('tests', 'docs'))
+    test_suite='nose.collector',
+    tests_require=['nose', 'nose-cover3'],
 )
