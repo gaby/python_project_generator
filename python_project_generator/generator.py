@@ -36,13 +36,11 @@ class ProjectGenerator():
     def generate(self):
         for item in self.template_items(self.template_dir):
             item_path = self.get_item_path(item)
-            target_path = self.get_target_path(item)
+            target_path = self.get_target_path(item.replace('.tmpl', ''))
 
             if os.path.isdir(item_path):
-                try:
+                if not os.path.exists(target_path):
                     os.mkdir(target_path)
-                except FileExistsError:
-                    pass
             else:
                 shutil.copy(item_path, target_path)
                 with open(item_path, 'r') as in_file:
