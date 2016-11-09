@@ -6,6 +6,7 @@ with open("README.md") as f:
 with open('LICENSE') as f:
     license = f.read()
 
+
 setup(
     name="python_project_generator",
     version='0.0.1',
@@ -16,7 +17,7 @@ setup(
     url="https://github.com/slumber1122/python_project_generator",
     license=license,
     scripts=['bin/gen_project.py'],
-    packages='python_project_generator',
+    packages=['python_project_generator'],
     keywords='structure of python project',
     include_package_data=True,
     zip_safe=False
