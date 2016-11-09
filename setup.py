@@ -15,6 +15,7 @@ setup(
     author_email="slumber1122@gmail.com",
     url="https://github.com/slumber1122/python_project_generator",
     license=license,
+    scripts=['bin/gen_project.py'],
     packages='python_project_generator',
     keywords='structure of python project',
     include_package_data=True,
