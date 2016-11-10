@@ -48,7 +48,6 @@ class ProjectGenerator():
                     content = jinja2.Template(content).render(self.render_dict)
                     with open(target_path, 'w') as out_file:
                         out_file.write(content)
-            print('\n')
 
 
 def main():
