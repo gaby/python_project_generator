@@ -4,6 +4,8 @@
 Follow the recommendation of [Kenneth Reitz](http://docs.python-guide.org/en/latest/writing/structure/), you can generate the project immediately.
 
 ## usage
+pip install python_project_generator
+
 pygen [-h] [--dir DIR] [--name NAME] [--author AUTHOR][--email EMAIL]
 
 Args of Pyhton Project Generator
